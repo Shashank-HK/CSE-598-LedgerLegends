@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Fake Product Identification</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 0;
+		}
+
+		section {
+			background-color: #ffffff;
+			padding: 20px;
+			margin: 50px auto;
+			max-width: 800px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		.container {
+			margin: 0 auto;
+		}
+
+		h2 {
+			text-align: center;
+			color: #007bff;
+		}
+
+		.form-row {
+			margin-bottom: 15px;
+		}
+
+		.form-control {
+			width: 100%;
+			padding: 8px;
+			margin-top: 5px;
+			margin-bottom: 10px;
+			box-sizing: border-box;
+			border: 1px solid #ced4da;
+			border-radius: 4px;
+		}
+
+		.btn-register {
+			background-color: #555;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		#qr-reader {
+			width: 300px;
+			margin: auto;
+		}
+
+		#qr-reader-results {
+			text-align: center;
+			margin-top: 20px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+<body>
+	<section>
+		<div class="container">
+			<h2>Sell to Distributor</h2>
+			<div class="row">
+				<div class="col mt-5">
+					<form>
+						<div class="form-row">
+							<div class="col-md-6">
+								<label for="productSN">Product Serial Number:</label>
+								<input disabled class="form-control" id="productSN" name="productSN" type="text" />
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-md-6">
+								<label for="sellerCode">Distributor Code</label>
+								<input class="form-control" id="sellerCode" name="sellerCode" type="text" />
+							</div>
+						</div>
+					</form>
+					<div align="center">
+						<button type="submit" class="btn btn-register" id="register">Sell to Distributor</button>
+					</div>
+				</div>
+				<section class="col">
+					<div class="container-fluid">
+						<center>
+							<div id="qr-reader" style="width: 300px"></div>
+							<div id="qr-reader-results"></div>
+						</center>
+					</div>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/web3.min.js"></script>
+	<script src="js/truffle-contract.js"></script>
+	<script src="js/sellProductManufacturer.js"></script>
+	<script src="https://unpkg.com/html5-qrcode"></script>
+	<script>
+		var decodedText = "Enter Product SN";
+		function docReady(fn) {
+			if (document.readyState === "complete" || document.readyState === "interactive") {
+				setTimeout(fn, 1);
+			} else {
+				document.addEventListener("DOMContentLoaded", fn);
+			}
+		}
+
+		docReady(function () {
+			var resultContainer = document.getElementById('qr-reader-results');
+			var lastResult, countResults = 0;
+			function onScanSuccess(decodedText, decodedResult) {
+				if (decodedText !== lastResult) {
+					++countResults;
+					lastResult = decodedText;
+					document.getElementById('qr-reader-results').innerHTML = decodedText;
+					document.getElementById("productSN").value = decodedText;
+				}
+			}
+
+			var html5QrcodeScanner = new Html5QrcodeScanner(
+				"qr-reader", { fps: 10, qrbox: 250 });
+			html5QrcodeScanner.render(onScanSuccess);
+		});
+	</script>
+</body>
+
+</html>

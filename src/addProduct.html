@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Fake Product Identification</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			background-color: #f8f9fa;
+			margin: 0;
+			padding: 0;
+		}
+
+		section {
+			background-color: #ffffff;
+			padding: 20px;
+			margin: 90px auto;
+			max-width: 600px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			border-radius: 8px;
+		}
+
+		.container {
+			margin: 0 auto;
+		}
+
+		h2 {
+			text-align: center;
+			color: #007bff;
+		}
+
+		.matrix {
+			margin-top: 20px;
+		}
+
+		form {
+			padding: 10px;
+		}
+
+		label {
+			font-weight: bold;
+		}
+
+		.form-row {
+			margin-bottom: 15px;
+		}
+
+		.form-control {
+			width: 100%;
+			padding: 8px;
+			margin-top: 5px;
+			margin-bottom: 10px;
+			box-sizing: border-box;
+			border: 1px solid #ced4da;
+			border-radius: 4px;
+		}
+
+		.btn-register {
+			background-color: #555;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.qr-code {
+			margin-top: 150px;
+		}
+
+		#imgQR {
+			max-width: 100%;
+			height: auto;
+		}
+
+		#download {
+			background-color: #555;
+			color: #fff;
+			border: none;
+			padding: 10px 20px;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<section class="col">
+				<div class="container">
+					<h2>Add Product</h2>
+					<div class="matrix">
+						<form>
+							<div class="form-row">
+								<div class="col-md-6">
+									<label for="manufacturerID">Manufacturer ID</label>
+									<input class="form-control" id="manufacturerID" name="Manufacturer ID"
+										type="text" />
+								</div>
+								<div class="col-md-6">
+									<label for="productName">Product Name</label>
+									<input class="form-control" id="productName" name="productName" type="text" />
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-md-6">
+									<label for="productSN">Product Serial Number</label>
+									<input class="form-control" id="productSN" name="productSN" type="text" />
+								</div>
+								<div class="col-md-6">
+									<label for="productPrice">Price</label>
+									<input class="form-control" id="productPrice" name="productPrice" type="text" />
+								</div>
+							</div>
+						</form>
+					</div>
+					<div align="center">
+						<button type="button" class="btn btn-register" id="register" onclick="fetchQR()">Add
+							Product</button>
+					</div>
+				</div>
+			</section>
+
+			<div class="qr-code col">
+				<div align="center">
+					<img align="center" hidden id="imgQR" src="" alt="qr-code" />
+				</div>
+				<br>
+				<div align="center">
+					<button align="center" hidden type="button" class="btn" id="download" onclick="saveImage()">Download
+						Barcode</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/popper.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/web3.min.js"></script>
+	<script src="js/truffle-contract.js"></script>
+	<script src="js/productApp.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+	<script>
+		var src;
+		var qrValue;
+
+		function fetchQR() {
+			qrValue = document.getElementById('productSN').value;
+			qrImage = document.querySelector(".qr-code");
+			qrImageResult = qrImage.querySelector("img");
+			src = qrImageResult.src = `https://barcodeapi.org/api/auto/${qrValue}`;
+
+			downloadQrImg = document.getElementById('imgQR');
+			downloadQrBtn = document.getElementById('download');
+			downloadQrImg.removeAttribute('hidden');
+			downloadQrBtn.removeAttribute('hidden');
+
+		}
+
+		function saveImage() {
+			saveAs(src, qrValue);
+			downloadQrImg.setAttribute('hidden', 'hidden');
+			downloadQrBtn.setAttribute('hidden', 'hidden');
+		}
+	</script>
+</body>
+
+</html>

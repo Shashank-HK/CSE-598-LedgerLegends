@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Fake Product Identification</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .container mt-4 {
+            margin-top: 2rem !important;
+        }
+
+        .row .col-md-4 {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .row .col-md-4 img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .col-md-4>p {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            text-align: center;
+        }
+
+        .col-md-4:hover .options {
+            display: block;
+        }
+
+        img {
+            cursor: pointer;
+        }
+
+        .options a {
+            display: block;
+            padding: 0.5rem;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            transition: background-color 0.3s;
+            cursor: pointer;
+        }
+
+        .options a:last-child {
+            border-bottom: none;
+        }
+
+        .options a:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar navbar-dark bg-dark">
+        <div class="container">
+            <h2 class="navbar-brand">Fake Product Identification Using Blockchain</h2>
+        </div>
+    </header>
+
+    <div class="container mt-4 text-center">
+        <h3>Choose Your Role</h3>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <img src="images/manufacturer.png" alt="Manufacturer" class="img-fluid">
+                <p>Manufacturer</p>
+                <div class="options">
+                    <a onclick="goToNav('addProduct')">Add Product</a>
+                    <a onclick="goToNav('addSeller')">Add Distributor</a>
+                    <a onclick="goToNav('sellProductManufacturer')">Sell to Distributor</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="images/seller.png" alt="Seller" class="img-fluid">
+                <p>Distributor</p>
+                <div class="options">
+                    <a onclick="goToNav('sellProductSeller')">Sell to Consumer</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="images/consumer.png" alt="Consumer" class="img-fluid">
+                <p>Consumer</p>
+                <div class="options">
+                    <a onclick="goToNav('verifyProducts')">Verify Product</a>
+                    <a onclick="goToNav('consumerPurchaseHistory')">Purchase History</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js"></script>
+    <script>
+        function goToNav(landing) {
+            window.location.href = 'main.html?landing=' + encodeURIComponent(landing);
+        }
+    </script>
+</body>
+
+</html>
